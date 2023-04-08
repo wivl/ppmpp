@@ -1,3 +1,16 @@
+/*     DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
+
+Copyright (c) 2023 wivl. All rights reserved.
+
+Licensed under the "THE BEER-WARE LICENSE" (Revision 42):
+Everyone is permitted to copy and distribute verbatim or modified
+copies of this license document, and changing it is allowed as long
+as the name is changed.
+
+    DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
+TERMS AND CONDITIONS FOR COPYING, DISTRIBUTION AND MODIFICATION
+    0. You just DO WHAT THE FUCK YOU WANT TO. */
+
 #include "ppmpp.hpp"
 
 #include <cstdlib>
@@ -8,7 +21,7 @@
 void ppm::Image::write(const char *filename, std::vector<uint32_t> pixels, int width, int height) {
     std::ofstream outfile(filename, std::ios::binary);
     if (!outfile) {
-        std::cerr << "ppmpp: Error opening file: " << filename << std::endl;
+        std::cerr << "ppmpp: Error creating file: " << filename << std::endl;
         exit(1);
     }
     outfile << "P6\n" << width << " " << height << "\n255\n";
@@ -72,7 +85,7 @@ uint32_t ppm::Image::get(int w, int h) {
 void ppm::Image::save(const char *filename) {
     std::ofstream outfile(filename, std::ios::binary);
     if (!outfile) {
-        std::cerr << "ppmpp: Error opening file: " << filename << std::endl;
+        std::cerr << "ppmpp: Error creating file: " << filename << std::endl;
         exit(1);
     }
     outfile << "P6\n" << width << " " << height << "\n255\n";
