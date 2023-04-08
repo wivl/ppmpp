@@ -5,6 +5,25 @@
 #include <iostream>
 #include <fstream>
 
+void ppm::Image::write(const char *filename, std::vector<uint32_t> pixels, int width, int height) {
+    std::ofstream outfile(filename, std::ios::binary);
+    if (!outfile) {
+        std::cerr << "ppmpp: Error opening file: " << filename << std::endl;
+        exit(1);
+    }
+    outfile << "P6\n" << width << " " << height << "\n255\n";
+    for (int i = 0; i < width*height; i++) {
+        uint32_t pixel = pixels[i];
+        uint8_t bytes[3];
+        for (int j = 0; j < 3; j++) {
+            bytes[j] = (pixel >> (8*j)) & 0xFF;
+            outfile << bytes[j];
+        }
+    }
+    outfile.close();
+
+}
+
 ppm::Image::Image() {
     width = 0;
     height = 0;
@@ -29,6 +48,12 @@ int ppm::Image::get_height() {
     return height;
 }
 
+std::vector<uint32_t> ppm::Image::get_pixels() {
+    return pixels;
+}
+
+
+
 void ppm::Image::set(int w, int h, uint32_t pixel) {
     if (w >= width || h >= height) {
         std::cerr << "ppmpp: Invalid w/h value." << std::endl;
@@ -51,9 +76,8 @@ void ppm::Image::save(const char *filename) {
         exit(1);
     }
     outfile << "P6\n" << width << " " << height << "\n255\n";
-    // TODO: write pixels
-    // outfile.write((char*)&pixels, width * height * 3);
     for (int i = 0; i < width*height; i++) {
+        // AABBGGRR
         uint32_t pixel = pixels[i];
         uint8_t bytes[3];
         for (int j = 0; j < 3; j++) {

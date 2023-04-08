@@ -14,6 +14,8 @@ namespace ppm {
             int height;
         public:
 
+            static void write(const char *filename, std::vector<uint32_t> pixels, int width, int height);
+
             Image();
             Image(int width, int height);
 
@@ -22,6 +24,9 @@ namespace ppm {
 
             int get_width();
             int get_height();
+
+
+            std::vector<uint32_t> get_pixels();
 
             void set(int w, int h, uint32_t pixel);
             uint32_t get(int w, int h);
