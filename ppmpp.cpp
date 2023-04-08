@@ -1,0 +1,67 @@
+#include "ppmpp.hpp"
+
+#include <cstdlib>
+#include <vector>
+#include <iostream>
+#include <fstream>
+
+ppm::Image::Image() {
+    width = 0;
+    height = 0;
+}
+
+ppm::Image::Image(int width, int height) {
+    this->width = width;
+    this->height = height;
+    std::vector<uint32_t> pixels(this->width*this->height);
+    this->pixels = pixels;
+}
+
+
+
+// TODO: I currently don't care about read a ppm image from file.
+// Image(const char *filename);
+
+int ppm::Image::get_width() {
+    return width;
+}
+int ppm::Image::get_height() {
+    return height;
+}
+
+void ppm::Image::set(int w, int h, uint32_t pixel) {
+    if (w >= width || h >= height) {
+        std::cerr << "ppmpp: Invalid w/h value." << std::endl;
+        exit(1);
+    }
+    pixels[h*width+w] = pixel;
+}
+uint32_t ppm::Image::get(int w, int h) {
+    if (w >= width || h >= height) {
+        std::cerr << "ppmpp: Invalid w/h value" << std::endl;
+        exit(1);
+    }
+    return pixels[h*width+w];
+}
+
+void ppm::Image::save(const char *filename) {
+    std::ofstream outfile(filename, std::ios::binary);
+    if (!outfile) {
+        std::cerr << "ppmpp: Error opening file: " << filename << std::endl;
+        exit(1);
+    }
+    outfile << "P6\n" << width << " " << height << "\n255\n";
+    // TODO: write pixels
+    // outfile.write((char*)&pixels, width * height * 3);
+    for (int i = 0; i < width*height; i++) {
+        uint32_t pixel = pixels[i];
+        uint8_t bytes[3];
+        for (int j = 0; j < 3; j++) {
+            bytes[j] = (pixel >> (8*j)) & 0xFF;
+            outfile << bytes[j];
+        }
+    }
+    outfile.close();
+}
+
+

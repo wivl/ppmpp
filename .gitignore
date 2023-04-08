@@ -1,3 +1,9 @@
+# Custom
+CMakeLists.txt
+/build
+.DS_Store
+
+
 # Prerequisites
 *.d
 
