@@ -20,6 +20,42 @@ TERMS AND CONDITIONS FOR COPYING, DISTRIBUTION AND MODIFICATION
 
 namespace ppm {
 
+    class Color {
+        private:
+            uint32_t raw;
+            std::vector<uint8_t> abgr;
+        public:
+            Color();
+            Color(uint32_t pixel);
+            Color(uint8_t r, uint8_t g, uint8_t b);
+            Color(uint8_t r, uint8_t g, uint8_t b, uint8_t a);
+
+            uint32_t get_raw();
+            uint8_t get_r();
+            uint8_t get_g();
+            uint8_t get_b();
+            uint8_t get_a();
+
+            void intensity(float intensity);
+
+            Color &operator=(const Color &other) {
+                if (this != &other) {
+                    this->raw = other.raw;
+                    this->abgr = other.abgr;
+                }
+                return *this;
+            }
+
+            uint8_t &operator[](int index) {
+                if (index < 0 || index >= 4) {
+                    std::cerr << "ppmpp: Index out of range: " << index << std::endl;
+                    exit(1);
+                }
+                return abgr[index];
+            }
+
+    };
+
     class Image {
         private:
             std::vector<uint32_t> pixels;
@@ -42,6 +78,7 @@ namespace ppm {
             std::vector<uint32_t> get_pixels();
 
             void set(int w, int h, uint32_t pixel);
+            void set(int w, int h, ppm::Color color);
             uint32_t get(int w, int h);
 
             void save(const char *filename);
