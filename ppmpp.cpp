@@ -136,7 +136,7 @@ std::vector<uint32_t> ppm::Image::get_pixels() {
 
 void ppm::Image::set(int w, int h, ppm::Color color) {
     if (w >= width || h >= height) {
-        std::cerr << "ppmpp: Invalid w/h value " << w << "/" << h << "in set()" << std::endl;
+        std::cerr << "ppmpp: Invalid w/h value " << w << "/" << h << " in set()" << std::endl;
         exit(1);
     }
     pixels[h*width+w] = color.get_raw();
@@ -146,7 +146,7 @@ void ppm::Image::set(int w, int h, ppm::Color color) {
 
 void ppm::Image::set(int w, int h, uint32_t pixel) {
     if (w >= width || h >= height) {
-        std::cerr << "ppmpp: Invalid w/h value " << w << "/" << h << "in set()" << std::endl;
+        std::cerr << "ppmpp: Invalid w/h value " << w << "/" << h << " in set()" << std::endl;
         exit(1);
     }
     pixels[h*width+w] = pixel;
@@ -154,7 +154,7 @@ void ppm::Image::set(int w, int h, uint32_t pixel) {
 
 uint32_t ppm::Image::get(int w, int h) {
     if (w >= width || h >= height) {
-        std::cerr << "ppmpp: Invalid w/h value " << w << "/" << h << "in get()" << std::endl;
+        std::cerr << "ppmpp: Invalid w/h value " << w << "/" << h << " in get()" << std::endl;
         exit(1);
     }
     return pixels[h*width+w];
