@@ -6,7 +6,7 @@
 
 Who needs this?
 
-Maybe you have an array of pixels, and wants to save an image and don't care about shit, you can try this.
+Maybe you have an array of pixels, and want to save an image and don't care about shit, you can try this.
 
 ppm format is actually really easy. But if you are too lazy to write your own encoder, just copy the <code>ppmpp.hpp</code> and <code>ppmpp.cpp</code> to your project.
 
