@@ -74,12 +74,11 @@ uint8_t ppm::Color::get_a() {
 }
 
 void ppm::Color::intensity(float intensity) {
-    if (intensity < 0) {
-        return ;
-    }
+    intensity = intensity < 0 ? 0 : intensity;
     for (int i = 1; i < 4; i++) {
-        abgr[i] = uint8_t(abgr[i] * intensity) > 0xFF ?
-            uint8_t(abgr[i] * intensity) : 0xFF;
+        int tmp = (abgr[i] * intensity) < 255 ?
+            (abgr[i] * intensity) : 255;
+        abgr[i] = uint8_t(tmp);
     }
     raw = ((abgr[0] << (3*8)) & 0xFF000000) +
         ((abgr[1] << (2*8)) & 0xFF0000) + 

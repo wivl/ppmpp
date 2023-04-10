@@ -14,9 +14,9 @@ int main(void) {
     for (int h = 200-1; h <= 400-1; h++) {
         for (int w = 200-1; w <= 600-1; w++) {
             //              0xAABBGGRR
-            image.set(w, h, 0xFFFFFFFF);
+            // image.set(w, h, 0xFFFFFFFF);
             // or:
-            // image.set(w, h, color);
+            image.set(w, h, color);
         }
     }
     // Create another image from raw pixels(uint32_t, 0xAABBGGRR)
