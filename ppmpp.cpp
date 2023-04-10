@@ -105,6 +105,39 @@ void ppm::Image::write(const char *filename, std::vector<uint32_t> pixels, int w
     outfile.close();
 }
 
+std::vector<uint32_t> ppm::Image::load(const char *filename, int &width, int &height) {
+    std::vector<uint32_t> pixels;
+    std::ifstream infile(filename, std::ios::binary);
+    if (!infile) {
+        std::cerr << "ppmpp: Error opening file: " << filename << std::endl;
+        exit(1);
+    }
+    std::string format;
+    infile >> format;
+    if (format != "P6") {
+        std::cerr << "ppmpp: Invalid file format: " << format << std::endl;
+        exit(1);
+    }
+    infile >> width >> height;
+    int maxval;
+    infile >> maxval;
+    if (maxval != 255) {
+        std::cerr << "ppmpp: Invalid max value: " << maxval << " (only 255 supported)" << std::endl;
+        exit(1);
+    }
+
+    pixels.resize(width*height);
+    char r, g, b;
+    for (size_t i = 0; i < width * height; i++) {
+        infile.read(&r, 1);
+        infile.read(&g, 1);
+        infile.read(&b, 1);
+        pixels[i] = 0xFF000000 | (r << 16) | (g << 8) | b;
+    }
+    infile.close();
+    return pixels;
+}
+
 ppm::Image::Image() {
     width = 0;
     height = 0;
@@ -118,8 +151,68 @@ ppm::Image::Image(int width, int height) {
 }
 
 
-// TODO: I currently don't care about read a ppm image from file.
-// Image(const char *filename);
+ppm::Image::Image(const char *filename) {
+    std::ifstream infile(filename, std::ios::binary);
+    if (!infile) {
+        std::cerr << "ppmpp: Error opening file: " << filename << std::endl;
+        exit(1);
+    }
+    std::string format;
+    infile >> format;
+    if (format != "P6") {
+        std::cerr << "ppmpp: Invalid file format: " << format << std::endl;
+        exit(1);
+    }
+    infile >> width >> height;
+    int maxval;
+    infile >> maxval;
+    if (maxval != 255) {
+        std::cerr << "ppmpp: Invalid max value: " << maxval << " (only 255 supported)" << std::endl;
+        exit(1);
+    }
+
+    pixels.resize(width*height);
+    char r, g, b;
+    for (size_t i = 0; i < width * height; i++) {
+        infile.read(&r, 1);
+        infile.read(&g, 1);
+        infile.read(&b, 1);
+        pixels[i] = 0xFF000000 | (r << 16) | (g << 8) | b;
+    }
+    infile.close();
+
+}
+void ppm::Image::load(const char *filename) {
+    std::ifstream infile(filename, std::ios::binary);
+    if (!infile) {
+        std::cerr << "ppmpp: Error opening file: " << filename << std::endl;
+        exit(1);
+    }
+    std::string format;
+    infile >> format;
+    if (format != "P6") {
+        std::cerr << "ppmpp: Invalid file format: " << format << std::endl;
+        exit(1);
+    }
+    infile >> width >> height;
+    int maxval;
+    infile >> maxval;
+    if (maxval != 255) {
+        std::cerr << "ppmpp: Invalid max value: " << maxval << " (only 255 supported)" << std::endl;
+        exit(1);
+    }
+
+    pixels.resize(width*height);
+    char r, g, b;
+    for (size_t i = 0; i < width * height; i++) {
+        infile.read(&r, 1);
+        infile.read(&g, 1);
+        infile.read(&b, 1);
+        pixels[i] = 0xFF000000 | (r << 16) | (g << 8) | b;
+    }
+    infile.close();
+
+}
 
 int ppm::Image::get_width() {
     return width;
@@ -132,6 +225,7 @@ int ppm::Image::get_height() {
 std::vector<uint32_t> ppm::Image::get_pixels() {
     return pixels;
 }
+
 
 void ppm::Image::set(int w, int h, ppm::Color color) {
     if (w >= width || h >= height) {

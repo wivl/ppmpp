@@ -64,18 +64,19 @@ namespace ppm {
         public:
 
             static void write(const char *filename, std::vector<uint32_t> pixels, int width, int height);
+            static std::vector<uint32_t> load(const char *filename, int &width, int &height);
 
             Image();
             Image(int width, int height);
 
-            // TODO: I currently don't care about read a ppm image from file.
-            // Image(const char *filename);
+            Image(const char *filename);
 
             int get_width();
             int get_height();
 
 
             std::vector<uint32_t> get_pixels();
+            void load(const char *filename);
 
             void set(int w, int h, uint32_t pixel);
             void set(int w, int h, ppm::Color color);
