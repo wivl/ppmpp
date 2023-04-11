@@ -132,7 +132,7 @@ std::vector<uint32_t> ppm::Image::load(const char *filename, int &width, int &he
         infile.read(&r, 1);
         infile.read(&g, 1);
         infile.read(&b, 1);
-        pixels[i] = 0xFF000000 | (r << 16) | (g << 8) | b;
+        pixels[i] = 0xFF000000 | (b << 16) | (g << 8) | r;
     }
     infile.close();
     return pixels;
@@ -177,7 +177,7 @@ ppm::Image::Image(const char *filename) {
         infile.read(&r, 1);
         infile.read(&g, 1);
         infile.read(&b, 1);
-        pixels[i] = 0xFF000000 | (r << 16) | (g << 8) | b;
+        pixels[i] = 0xFF000000 | (b << 16) | (g << 8) | r;
     }
     infile.close();
 
@@ -208,7 +208,7 @@ void ppm::Image::load(const char *filename) {
         infile.read(&r, 1);
         infile.read(&g, 1);
         infile.read(&b, 1);
-        pixels[i] = 0xFF000000 | (r << 16) | (g << 8) | b;
+        pixels[i] = 0xFF000000 | (b << 16) | (g << 8) | r;
     }
     infile.close();
 
