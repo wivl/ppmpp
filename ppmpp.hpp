@@ -82,6 +82,8 @@ namespace ppm {
             void set(int w, int h, ppm::Color color);
             uint32_t get(int w, int h);
 
+            Color get_color(int w, int h);
+
             void save(const char *filename);
             
             Image &operator=(const Image &other) {

@@ -222,6 +222,10 @@ int ppm::Image::get_height() {
     return height;
 }
 
+ppm::Color ppm::Image::get_color(int w, int h) {
+    return ppm::Color(this->get(w, h));
+}
+
 std::vector<uint32_t> ppm::Image::get_pixels() {
     return pixels;
 }
