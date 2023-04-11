@@ -128,12 +128,12 @@ std::vector<uint32_t> ppm::Image::load(const char *filename, int &width, int &he
 
     infile.ignore(256, '\n');
     pixels.resize(width*height);
-    char r, g, b;
+    unsigned char r, g, b;
     for (size_t i = 0; i < width * height; i++) {
-        infile.read(&r, 1);
-        infile.read(&g, 1);
-        infile.read(&b, 1);
-        pixels[i] = 0xFF000000 | (b << 16) | (g << 8) | r;
+        infile.read(reinterpret_cast<char*>(&r), 1);
+        infile.read(reinterpret_cast<char*>(&g), 1);
+        infile.read(reinterpret_cast<char*>(&b), 1);
+        pixels[i] = (0xFF000000u) | (b << 16) | (g << 8) | r;
     }
     infile.close();
     return pixels;
@@ -174,12 +174,12 @@ ppm::Image::Image(const char *filename) {
 
     infile.ignore(256, '\n');
     pixels.resize(width*height);
-    char r, g, b;
+    unsigned char r, g, b;
     for (size_t i = 0; i < width * height; i++) {
-        infile.read(&r, 1);
-        infile.read(&g, 1);
-        infile.read(&b, 1);
-        pixels[i] = 0xFF000000 | (b << 16) | (g << 8) | r;
+        infile.read(reinterpret_cast<char*>(&r), 1);
+        infile.read(reinterpret_cast<char*>(&g), 1);
+        infile.read(reinterpret_cast<char*>(&b), 1);
+        pixels[i] = (0xFF000000u) | (b << 16) | (g << 8) | r;
     }
     infile.close();
 }
@@ -207,12 +207,12 @@ void ppm::Image::load(const char *filename) {
 
     infile.ignore(256, '\n');
     pixels.resize(width*height);
-    char r, g, b;
+    unsigned char r, g, b;
     for (size_t i = 0; i < width * height; i++) {
-        infile.read(&r, 1);
-        infile.read(&g, 1);
-        infile.read(&b, 1);
-        pixels[i] = 0xFF000000 | (b << 16) | (g << 8) | r;
+        infile.read(reinterpret_cast<char*>(&r), 1);
+        infile.read(reinterpret_cast<char*>(&g), 1);
+        infile.read(reinterpret_cast<char*>(&b), 1);
+        pixels[i] = (0xFF000000u) | (b << 16) | (g << 8) | r;
     }
     infile.close();
 
