@@ -126,6 +126,7 @@ std::vector<uint32_t> ppm::Image::load(const char *filename, int &width, int &he
         exit(1);
     }
 
+    infile.ignore(256, '\n');
     pixels.resize(width*height);
     char r, g, b;
     for (size_t i = 0; i < width * height; i++) {
@@ -171,6 +172,7 @@ ppm::Image::Image(const char *filename) {
         exit(1);
     }
 
+    infile.ignore(256, '\n');
     pixels.resize(width*height);
     char r, g, b;
     for (size_t i = 0; i < width * height; i++) {
@@ -180,8 +182,9 @@ ppm::Image::Image(const char *filename) {
         pixels[i] = 0xFF000000 | (b << 16) | (g << 8) | r;
     }
     infile.close();
-
 }
+
+
 void ppm::Image::load(const char *filename) {
     std::ifstream infile(filename, std::ios::binary);
     if (!infile) {
@@ -202,6 +205,7 @@ void ppm::Image::load(const char *filename) {
         exit(1);
     }
 
+    infile.ignore(256, '\n');
     pixels.resize(width*height);
     char r, g, b;
     for (size_t i = 0; i < width * height; i++) {

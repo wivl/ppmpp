@@ -13,6 +13,7 @@ int main(void) {
     // define colors
     ppm::Color white(0xFFFFFFFF);
     ppm::Color red(0xFF0000FF);
+    ppm::Color green(93, 144, 128);
 
     // create image
     ppm::Image image(800, 600);
@@ -21,7 +22,7 @@ int main(void) {
             //                 0xAABBGGRR
             // image.set(w, h, 0xFFFFFFFF);
             // or:
-            image.set(w, h, white);
+            image.set(w, h, green);
         }
     }
     // Create another image from raw pixels(uint32_t, 0xAABBGGRR)
