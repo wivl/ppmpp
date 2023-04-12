@@ -261,6 +261,33 @@ uint32_t ppm::Image::get(int w, int h) {
     return pixels[h*width+w];
 }
 
+ppm::Image ppm::Image::vfliped() {
+    ppm::Image flipped_image(width, height);
+
+    for (int i = 0; i < height; i++) {
+		for (int j = 0; j < width; j++) {
+			int y = height - 1 - i;
+			int x = j;
+			flipped_image.set(j, i, this->get(x, y));
+		}
+	}
+    return flipped_image;
+}
+
+void ppm::Image::vflip() {
+    ppm::Image flipped_image(width, height);
+
+    for (int i = 0; i < height; i++) {
+        for (int j = 0; j < width; j++) {
+            int y = height - 1 - i;
+            int x = j;
+            flipped_image.set(j, i, this->get(x, y));
+        }
+    }
+    this->pixels = flipped_image.pixels;
+}
+
+
 void ppm::Image::save(const char *filename) {
     std::ofstream outfile(filename, std::ios::binary);
     if (!outfile) {

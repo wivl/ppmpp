@@ -85,6 +85,9 @@ namespace ppm {
             Color get_color(int w, int h);
 
             void save(const char *filename);
+
+            ppm::Image vfliped();
+            void vflip();
             
             Image &operator=(const Image &other) {
                 if (this != &other) {
