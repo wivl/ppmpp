@@ -30,11 +30,11 @@ namespace ppm {
             Color(uint8_t r, uint8_t g, uint8_t b);
             Color(uint8_t r, uint8_t g, uint8_t b, uint8_t a);
 
-            uint32_t get_raw();
-            uint8_t get_r();
-            uint8_t get_g();
-            uint8_t get_b();
-            uint8_t get_a();
+            uint32_t get_raw() const;
+            uint8_t get_r() const;
+            uint8_t get_g() const;
+            uint8_t get_b() const;
+            uint8_t get_a() const;
 
             void intensity(float intensity);
 
@@ -44,6 +44,15 @@ namespace ppm {
                     this->abgr = other.abgr;
                 }
                 return *this;
+            }
+            
+            Color operator+(const Color& c2) {
+                uint8_t r = std::min(255, int(this->get_r()) + 
+int(c2.get_r()));
+                uint8_t g = std::min(255, int(this->get_g()) + int(c2.get_g()));
+                uint8_t b = std::min(255, int(this->get_b()) + int(c2.get_b()));
+                uint8_t a = std::min(255, int(this->get_a()) + int(c2.get_a()));
+                return Color(r, g, b, a);
             }
 
             uint8_t &operator[](int index) {

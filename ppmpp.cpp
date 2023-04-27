@@ -53,23 +53,23 @@ ppm::Color::Color(uint8_t r, uint8_t g, uint8_t b, uint8_t a) {
         ((r << (0*8)) & 0xFF);
 }
 
-uint32_t ppm::Color::get_raw() {
+uint32_t ppm::Color::get_raw() const {
     return raw;
 }
 
-uint8_t ppm::Color::get_r() {
+uint8_t ppm::Color::get_r() const {
     return abgr[3];
 }
 
-uint8_t ppm::Color::get_g() {
+uint8_t ppm::Color::get_g() const {
     return abgr[2];
 }
 
-uint8_t ppm::Color::get_b() {
+uint8_t ppm::Color::get_b() const {
     return abgr[1];
 }
 
-uint8_t ppm::Color::get_a() {
+uint8_t ppm::Color::get_a() const {
     return abgr[0];
 }
 
